@@ -1,0 +1,11 @@
+C:/Users/oscar/Desktop/CS350_2022/CS350_2022/cs350_ass1/out/build/x64-Debug/CMakeFiles/edit_cache.dir
+C:/Users/oscar/Desktop/CS350_2022/CS350_2022/cs350_ass1/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir
+C:/Users/oscar/Desktop/CS350_2022/CS350_2022/cs350_ass1/out/build/x64-Debug/src/CMakeFiles/cs350_ass1.dir
+C:/Users/oscar/Desktop/CS350_2022/CS350_2022/cs350_ass1/out/build/x64-Debug/src/CMakeFiles/edit_cache.dir
+C:/Users/oscar/Desktop/CS350_2022/CS350_2022/cs350_ass1/out/build/x64-Debug/src/CMakeFiles/rebuild_cache.dir
+C:/Users/oscar/Desktop/CS350_2022/CS350_2022/cs350_ass1/out/build/x64-Debug/demo/CMakeFiles/edit_cache.dir
+C:/Users/oscar/Desktop/CS350_2022/CS350_2022/cs350_ass1/out/build/x64-Debug/demo/CMakeFiles/cs350_ass1_demo.dir
+C:/Users/oscar/Desktop/CS350_2022/CS350_2022/cs350_ass1/out/build/x64-Debug/demo/CMakeFiles/rebuild_cache.dir
+C:/Users/oscar/Desktop/CS350_2022/CS350_2022/cs350_ass1/out/build/x64-Debug/test/CMakeFiles/cs350_ass1_test.dir
+C:/Users/oscar/Desktop/CS350_2022/CS350_2022/cs350_ass1/out/build/x64-Debug/test/CMakeFiles/edit_cache.dir
+C:/Users/oscar/Desktop/CS350_2022/CS350_2022/cs350_ass1/out/build/x64-Debug/test/CMakeFiles/rebuild_cache.dir
