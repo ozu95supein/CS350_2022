@@ -13,7 +13,7 @@ int main()
     float near = 0.1f;
     float far = 100.0f;
     //create a camera for the scene
-    camera c(camPos, camUp, camDir, FOV_Rad, aspect, near, far);
+    camera c(camPos, camDir, camUp, 1024, 760, 45.0f, near, far);
     
     //Load GLAD so it configures OpenGL
     gladLoadGL();

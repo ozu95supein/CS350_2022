@@ -4,26 +4,22 @@
 #include <glm/gtc/type_ptr.hpp>
 #include<glm/gtx/rotate_vector.hpp>
 #include<glm/gtx/vector_angle.hpp>
-camera::camera()
+camera::camera(vec3 pos, vec3 dir, vec3 up, int w, int h, float fovdeg, float n, float f)
 {
-	mViewMatrix = mat4(1.0f);
-	mProjectionMatrix = mat4(1.0f);
-
+	mCameraPos = pos;
+	mCameraDir = dir;
+	mCameraUp = up;
+	wWidth = w;
+	wHeight = h;
+	float mFOV = fovdeg;
+	float mNear = n;
+	float mFar = f;
+	mWAspect = (float)wWidth / wHeight;
+	this->update();
 }
 camera::~camera()
 {
 
-}
-camera::camera(mat4 V, mat4 P)
-{
-	mViewMatrix = V;
-	mProjectionMatrix = P;
-
-}
-camera::camera(vec3 eye_pos, vec3 up, vec3 position_to_look_at, float FOV, float aspect, float near, float far)
-{
-	mViewMatrix = lookAt(eye_pos, position_to_look_at, up);
-	mProjectionMatrix = glm::perspective(FOV, aspect, near, far);
 }
 mat4 camera::GetViewMatrix()
 {
@@ -72,6 +68,18 @@ vec3 camera::ExtractCamDirection()
 	result.y = mViewMatrix[0].y;
 	result.z = mViewMatrix[0].z;
 	return result;
+}
+vec3 camera::GetCamPos()
+{
+	return mCameraPos;
+}
+vec3 camera::GetCamDir()
+{
+	return mCameraDir;
+}
+vec3 camera::GetCamUp()
+{
+	return mCameraUp;
 }
 
 void camera::Camera_Forward()
@@ -207,35 +215,35 @@ void camera::Camera_Mouse_Look_Release(GLFWwindow* window)
 //TODO
 void camera::update()
 {
+	// Makes camera look in the right direction from the right position
+	mViewMatrix = glm::lookAt(mCameraPos, mCameraPos + mCameraDir, mCameraUp);
+	mProjectionMatrix = glm::perspective(glm::radians(mFOV), mWAspect, mNear, mFar);
 	//What is this for? Deltatime?
 	float currentFrame = glfwGetTime();
 	deltaTime = currentFrame - lastFrame;
 	lastFrame = currentFrame;
-
 }
 //TODO
 void camera::set_projection(float fov_deg, glm::ivec2 const& window_size, float near, float far)
 {
-	mProjectionMatrix = glm::perspective(glm::radians(fov_deg), (float)window_size.x / window_size.y, near, far);
+	mFOV = glm::radians(fov_deg);
+	wWidth = window_size.x;
+	wHeight = window_size.y;
+	mNear = near;
+	mFar = far;
+	mWAspect = (float)window_size.x / window_size.y;
+	mProjectionMatrix = glm::perspective(glm::radians(fov_deg), mWAspect, near, far);
+
 }
 //TODO
 void camera::set_position(vec3 const& pos)
 {
-	vec3 camDir = this->ExtractCamDirection();
-	vec3 camUp = this->ExtractCamUp();
-
-	mat4 newViewMat = lookAt(pos, pos + camDir, camUp);
-	SetViewMatrix(newViewMat);
+	mCameraPos = pos;
 }
 //TODO
 void camera::set_target(vec3 const& tgt)
 {
-	vec3 camPos = this->ExtractCamPosition();
-	vec3 camDir = this->ExtractCamDirection();
-	vec3 camUp = this->ExtractCamUp();
-
-	vec3 newDir = tgt - camPos;
-	mat4 newViewMat = lookAt(camPos, camPos + newDir, camUp);
-	SetViewMatrix(newViewMat);
+	glm::vec3 d = tgt - mCameraPos;
+	mCameraDir = glm::normalize(d);
 }
 ///////////////////////////////////////////////////////////////////////////////

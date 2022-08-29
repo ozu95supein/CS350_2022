@@ -4,7 +4,10 @@
 #include "math.hpp"
 #include "opengl.hpp"
 class GLFWWindow;
-
+const float DEFAULT_speed = 0.01f;
+const float DEFAULT_NormalSpeed = 0.01f;
+const float DEFAULT_FastSpeed = 0.04f;
+const float DEFAULT_sensitivity = 100.0f;
 class camera
 {
 public:
@@ -12,18 +15,21 @@ public:
 	float lastFrame = 0.0f; // Time of last frame
 
     //my functions
-    camera();
+	camera(vec3 pos, vec3 dir, vec3 up, int w, int h, float fovdeg, float n, float f);
     ~camera();
-    camera(mat4 V, mat4 P);
-    camera(vec3 eye_pos, vec3 up, vec3 position_to_look_at, float FOV, float aspect, float near, float far);
 	mat4 GetViewMatrix();
 	void SetViewMatrix(mat4 v);
 	mat4 GetProjectionMatrix();
 	void SetProjectionMatrix(mat4 p);
+
 	vec3 ExtractCamPosition();
 	vec3 ExtractCamRight();
 	vec3 ExtractCamUp();
     vec3 ExtractCamDirection();
+	vec3 GetCamPos();
+	vec3 GetCamDir();
+	vec3 GetCamUp();
+
 	//Camera Control Functions to be externally called from the inputmanager object
 	void Camera_Forward();
 	void Camera_Left();
@@ -45,15 +51,24 @@ private:
 	//matrices for the rendering of the scene
     mat4 mViewMatrix;
     mat4 mProjectionMatrix;
-
+	//variables to determine the camera attributes
+	vec3 mCameraPos;
+	vec3 mCameraDir;
+	vec3 mCameraUp;
+	int wWidth;
+	int wHeight;
+	float mWAspect;
+	float mFOV;
+	float mNear;
+	float mFar;
 	//Variables to control the speed and smooth control of the camera
 	// Prevents the camera from jumping around when first clicking left click
 	bool firstClick = true;
 	// Adjust the speed of the camera and it's sensitivity when looking around
-	float speed = 0.01f;
-	float NormalSpeed = 0.01f;
-	float FastSpeed = 0.04f;
-	float sensitivity = 100.0f;
+	float speed = DEFAULT_speed;
+	float NormalSpeed = DEFAULT_NormalSpeed;
+	float FastSpeed = DEFAULT_FastSpeed;
+	float sensitivity = DEFAULT_sensitivity;
 };
 
 #endif // __CAMERA_HPP__
