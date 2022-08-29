@@ -15,6 +15,7 @@ public:
 	float lastFrame = 0.0f; // Time of last frame
 
     //my functions
+	camera();
 	camera(vec3 pos, vec3 dir, vec3 up, int w, int h, float fovdeg, float n, float f);
     ~camera();
 	mat4 GetViewMatrix();

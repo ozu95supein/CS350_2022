@@ -134,6 +134,15 @@ build src\CMakeFiles\cs350_ass1.dir\opengl.cpp.obj: CXX_COMPILER__cs350_ass1_Deb
   TARGET_COMPILE_PDB = src\CMakeFiles\cs350_ass1.dir\cs350_ass1.pdb
   TARGET_PDB = src\cs350_ass1.pdb
 
+build src\CMakeFiles\cs350_ass1.dir\InputManager.cpp.obj: CXX_COMPILER__cs350_ass1_Debug ..\..\..\src\InputManager.cpp || cmake_object_order_depends_target_cs350_ass1
+  DEFINES = -DGLFW_DLL
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 /W3 /D _CRT_SECURE_NO_WARNINGS -std:c++latest
+  INCLUDES = -I..\..\..\src\. -IC:\Users\oscar\Desktop\PackagesAndDownloads\vcpkg\installed\x64-windows\include
+  OBJECT_DIR = src\CMakeFiles\cs350_ass1.dir
+  OBJECT_FILE_DIR = src\CMakeFiles\cs350_ass1.dir
+  TARGET_COMPILE_PDB = src\CMakeFiles\cs350_ass1.dir\cs350_ass1.pdb
+  TARGET_PDB = src\cs350_ass1.pdb
+
 
 # =============================================================================
 # Link build statements for STATIC_LIBRARY target cs350_ass1
@@ -142,7 +151,7 @@ build src\CMakeFiles\cs350_ass1.dir\opengl.cpp.obj: CXX_COMPILER__cs350_ass1_Deb
 #############################################
 # Link the static library src\cs350_ass1.lib
 
-build src\cs350_ass1.lib: CXX_STATIC_LIBRARY_LINKER__cs350_ass1_Debug src\CMakeFiles\cs350_ass1.dir\primitive.cpp.obj src\CMakeFiles\cs350_ass1.dir\camera.cpp.obj src\CMakeFiles\cs350_ass1.dir\math.cpp.obj src\CMakeFiles\cs350_ass1.dir\debug_system.cpp.obj src\CMakeFiles\cs350_ass1.dir\shader.cpp.obj src\CMakeFiles\cs350_ass1.dir\window.cpp.obj src\CMakeFiles\cs350_ass1.dir\opengl.cpp.obj
+build src\cs350_ass1.lib: CXX_STATIC_LIBRARY_LINKER__cs350_ass1_Debug src\CMakeFiles\cs350_ass1.dir\primitive.cpp.obj src\CMakeFiles\cs350_ass1.dir\camera.cpp.obj src\CMakeFiles\cs350_ass1.dir\math.cpp.obj src\CMakeFiles\cs350_ass1.dir\debug_system.cpp.obj src\CMakeFiles\cs350_ass1.dir\shader.cpp.obj src\CMakeFiles\cs350_ass1.dir\window.cpp.obj src\CMakeFiles\cs350_ass1.dir\opengl.cpp.obj src\CMakeFiles\cs350_ass1.dir\InputManager.cpp.obj
   LANGUAGE_COMPILE_FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   LINK_FLAGS = /machine:x64
   OBJECT_DIR = src\CMakeFiles\cs350_ass1.dir

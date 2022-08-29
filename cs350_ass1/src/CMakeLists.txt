@@ -10,7 +10,7 @@ add_library(${PROJECT_NAME}
     shader.cpp shader.hpp 
     window.cpp window.hpp 
     opengl.cpp opengl.hpp
-)
+ "InputManager.hpp" "InputManager.cpp")
 target_include_directories(${PROJECT_NAME} PUBLIC .)
 
 # GLFW3

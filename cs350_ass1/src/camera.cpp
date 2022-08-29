@@ -4,6 +4,18 @@
 #include <glm/gtc/type_ptr.hpp>
 #include<glm/gtx/rotate_vector.hpp>
 #include<glm/gtx/vector_angle.hpp>
+camera::camera()
+{
+	mCameraPos = vec3(0.0f, 0.0f, 0.0f);
+	mCameraDir = vec3(0.0f, 0.0f, -1.0f);
+	mCameraUp = vec3(0.0f, 1.0f, 0.0f);;
+	wWidth = 1024;
+	wHeight = 576;
+	float mFOV = glm::radians(60.0f);
+	float mNear = 0.01f;
+	float mFar = 1000.0f;
+	mWAspect = (float)wWidth / wHeight;
+}
 camera::camera(vec3 pos, vec3 dir, vec3 up, int w, int h, float fovdeg, float n, float f)
 {
 	mCameraPos = pos;
@@ -82,71 +94,53 @@ vec3 camera::GetCamUp()
 	return mCameraUp;
 }
 
+vec3 mCameraPos;
+vec3 mCameraDir;
+vec3 mCameraUp;
+int wWidth;
+int wHeight;
+float mWAspect;
+float mFOV;
+float mNear;
+float mFar;
+//Variables to control the speed and smooth control of the camera
+// Prevents the camera from jumping around when first clicking left click
+bool firstClick = true;
+// Adjust the speed of the camera and it's sensitivity when looking around
+float speed = DEFAULT_speed;
+float NormalSpeed = DEFAULT_NormalSpeed;
+float FastSpeed = DEFAULT_FastSpeed;
+float sensitivity = DEFAULT_sensitivity;
+
 void camera::Camera_Forward()
 {
-	vec3 camPos = this->ExtractCamPosition();
-	vec3 camDir = this->ExtractCamDirection();
-	vec3 camUp = this->ExtractCamUp();
 	float camspeed = speed * deltaTime;
-
-	camPos += camspeed * camDir;
-	mat4 newViewMat = lookAt(camPos, camPos+camDir, camUp);
-	SetViewMatrix(newViewMat);
+	mCameraPos += camspeed * mCameraDir;
 }
 void camera::Camera_Left()
 {
-	vec3 camPos = this->ExtractCamPosition();
-	vec3 camDir = this->ExtractCamDirection();
-	vec3 camUp = this->ExtractCamUp();
 	float camspeed = speed * deltaTime;
-
-	camPos += camspeed * -glm::normalize(glm::cross(camDir, camUp));
-	mat4 newViewMat = lookAt(camPos, camPos + camDir, camUp);
-	SetViewMatrix(newViewMat);
+	mCameraPos += camspeed * -glm::normalize(glm::cross(mCameraDir, mCameraUp));
 }
 void camera::Camera_Back()
 {
-	vec3 camPos = this->ExtractCamPosition();
-	vec3 camDir = this->ExtractCamDirection();
-	vec3 camUp = this->ExtractCamUp();
 	float camspeed = speed * deltaTime;
-
-	camPos += camspeed * -camDir;
-	mat4 newViewMat = lookAt(camPos, camPos + camDir, camUp);
-	SetViewMatrix(newViewMat);
+	mCameraPos += camspeed * -mCameraDir;
 }
 void camera::Camera_Right()
 {
-	vec3 camPos = this->ExtractCamPosition();
-	vec3 camDir = this->ExtractCamDirection();
-	vec3 camUp = this->ExtractCamUp();
 	float camspeed = speed * deltaTime;
-
-	camPos += camspeed * glm::normalize(glm::cross(camDir, camUp));
-	mat4 newViewMat = lookAt(camPos, camPos + camDir, camUp);
-	SetViewMatrix(newViewMat);
+	mCameraPos += camspeed * glm::normalize(glm::cross(mCameraDir, mCameraUp));
 }
 void camera::Camera_Up()
 {
-	vec3 camPos = this->ExtractCamPosition();
-	vec3 camDir = this->ExtractCamDirection();
-	vec3 camUp = this->ExtractCamUp();
 	float camspeed = speed * deltaTime;
-
-	camPos += camspeed * camUp;
-	mat4 newViewMat = lookAt(camPos, camPos + camDir, camUp);
-	SetViewMatrix(newViewMat);
+	mCameraPos += camspeed * mCameraUp;
 }
 void camera::Camera_Down()
 {
-	vec3 camPos = this->ExtractCamPosition();
-	vec3 camDir = this->ExtractCamDirection();
-	vec3 camUp = this->ExtractCamUp();
 	float camspeed = speed * deltaTime;
-
-	camPos += camspeed * -camUp;
-	mat4 newViewMat = lookAt(camPos, camPos + camDir, camUp);
-	SetViewMatrix(newViewMat);
+	mCameraPos += camspeed * -mCameraUp;
 }
 void camera::Camera_Speed_Faster()
 {
@@ -163,9 +157,6 @@ void camera::Camera_MouseLook(GLFWwindow* window)
 	//get window width and height for calculations
 	int width = 0, height = 0;
 	glfwGetWindowSize(window, &width, &height);
-	vec3 camPos = this->ExtractCamPosition();
-	vec3 camDir = this->ExtractCamDirection();
-	vec3 camUp = this->ExtractCamUp();
 	
 	vec3 Orientation;
 	// Prevents camera from jumping on the first click
@@ -187,19 +178,19 @@ void camera::Camera_MouseLook(GLFWwindow* window)
 	float rotY = sensitivity * deltaTime * (float)(mouseX - (width / 2)) / width;
 
 	// Calculates upcoming vertical change in the Orientation
-	vec3 verticalOrientation = glm::rotate(camDir, glm::radians(-rotX), glm::normalize(glm::cross(camDir, camUp)));
+	vec3 verticalOrientation = glm::rotate(mCameraDir, glm::radians(-rotX), glm::normalize(glm::cross(mCameraDir, mCameraUp)));
 
 	// Decides whether or not the next vertical Orientation is legal or not
-	if (abs(glm::angle(verticalOrientation, camUp) - glm::radians(90.0f)) <= glm::radians(85.0f))
+	if (abs(glm::angle(verticalOrientation, mCameraUp) - glm::radians(90.0f)) <= glm::radians(85.0f))
 	{
 		Orientation = verticalOrientation;
 	}
 
 	// Rotates the Orientation left and right
-	Orientation = glm::rotate(Orientation, glm::radians(-rotY), camUp);
+	Orientation = glm::rotate(Orientation, glm::radians(-rotY), mCameraUp);
 
 	//Make a new view matrix with this new Orientation
-	mViewMatrix = lookAt(camPos, camPos + Orientation, camUp);
+	mViewMatrix = lookAt(mCameraPos, mCameraPos + Orientation, mCameraUp);
 
 	// Sets mouse cursor to the middle of the screen so that it doesn't end up roaming around
 	glfwSetCursorPos(window, (width / 2), (height / 2));

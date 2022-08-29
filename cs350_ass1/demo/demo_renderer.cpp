@@ -1,6 +1,7 @@
 #include "window.hpp"
 #include "camera.hpp"
 #include "glm/glm.hpp"
+#include "InputManager.hpp"
 int main()
 {
     window w(1024,760, "cs350_framework", true);
@@ -24,8 +25,12 @@ int main()
     //set the clear color
     glClearColor(0.05f, 0.07f, 0.2f, 1.0f);
 
+    //InputManager
+    InputManager input(w.GetWindowPtr(), &c);
+
     while (w.update()) 
     {    
+        input.ReceiveInputs();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         c.update();
     }
