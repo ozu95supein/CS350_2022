@@ -8,6 +8,7 @@ camera::camera()
 {
 	mViewMatrix = mat4(1.0f);
 	mProjectionMatrix = mat4(1.0f);
+
 }
 camera::~camera()
 {

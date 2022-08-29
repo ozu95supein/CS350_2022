@@ -30,7 +30,8 @@ window::window(int w, int h, const char* window_name, bool visible)
 	}
 	// Introduce the window into the current context
 	glfwMakeContextCurrent(mWindow);
-	
+	//Load GLAD so it configures OpenGL
+	gladLoadGL();
 	if (!visible)
 	{
 		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
