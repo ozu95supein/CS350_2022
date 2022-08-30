@@ -25,6 +25,7 @@ void main()
 //TODO
 debug_system::debug_system(camera const*)
 {
+    mDebugShader = Shader(DebugShader::c_vertex_shader, DebugShader::c_fragment_shader);
 
 }
 //TODO

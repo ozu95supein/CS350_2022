@@ -1,10 +1,10 @@
 #ifndef __DEBUG_SYSTEM_HPP__
 #define __DEBUG_SYSTEM_HPP__
 #include "camera.hpp"
+#include "shader.hpp"
 
 class debug_system
 {
-  private:
   public:
     debug_system(camera const*);
 
@@ -15,6 +15,22 @@ class debug_system
     void draw_plane(vec3 pt, vec3 n, float scale, vec4 color);
     void draw_sphere(vec3 c, float r, glm::vec4 color);
     void draw_frustum_lines(mat4 const& vp, vec4 color);
+private:
+    Shader mDebugShader;
+    GLuint mPointVAO;
+    GLuint mPointVBO;
+    GLuint mSegmentVAO;
+    GLuint mSegmentVBO;
+    GLuint mTriangleVAO;
+    GLuint mTriangleVBO;
+    GLuint mAABBVAO;
+    GLuint mAABBVBO;
+    GLuint mPlaneVAO;
+    GLuint mPlaneVBO;
+    GLuint mSphereVAO;
+    GLuint mSphereVBO;
+    GLuint mFrustrumVAO;
+    GLuint mFrustrumVBO;
 };
 
 #endif // __DEBUG_SYSTEM_HPP__
