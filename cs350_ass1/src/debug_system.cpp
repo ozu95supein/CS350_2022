@@ -22,16 +22,43 @@ void main()
 }
 )";
 }
+
 //TODO
-debug_system::debug_system(camera const*)
+debug_system::debug_system(camera const* c)
 {
+    //create the default shader with the 
     mDebugShader = Shader(DebugShader::c_vertex_shader, DebugShader::c_fragment_shader);
+    //set the camera pointer
+    mCam = c;
+    //primitaves are made by default as public variables
+    //now we create the vaos and vbos
+    //lets create the point first
+    InitPointBuffer();
+}
+void debug_system::InitPointBuffer()
+{
+    // create buffer for VAO
+    glGenVertexArrays(1, &mPointVAO);
+    // create buffer for VBO
+    glGenBuffers(1, &mPointVBO);
+
+    //bind so we are now doing stuff to the vao
+    glBindVertexArray(mPointVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, mPointVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vec3), &mDefaultPointPrim, GL_STATIC_DRAW);
 
 }
 //TODO
 void debug_system::draw_point(vec3 pt, vec4 color)
 {
+    // Bind the glsl program and this object's VAO
+    glUseProgram(mDebugShader.ID);
+    // Enable front-face culling
+    glCullFace(GL_FRONT);
 
+    glPointSize(DebugPointSize);
+    glBindBuffer(mPointVAO);
+    glDrawArrays(GL_POINT, 0, 1);
 }
 //TODO
 void debug_system::draw_segment(vec3 s, vec3 e, vec4 color)
