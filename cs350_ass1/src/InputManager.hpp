@@ -21,4 +21,6 @@ public:
 private:
 	GLFWwindow* mCurrentWindow;
 	camera* mCurrentCamera;
+	//Key release booleans
+	bool LEFT_SHIFT_PRESSED = false;
 };

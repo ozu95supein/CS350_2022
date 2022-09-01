@@ -4,6 +4,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include<glm/gtx/rotate_vector.hpp>
 #include<glm/gtx/vector_angle.hpp>
+#include <iostream>
 camera::camera()
 {
 	mCameraPos = vec3(0.0f, 0.0f, 0.0f);
@@ -116,39 +117,54 @@ void camera::Camera_Forward()
 {
 	float camspeed = speed * deltaTime;
 	mCameraPos += camspeed * mCameraDir;
+	//std::cout << "Camera_Forward" << std::endl;
 }
 void camera::Camera_Left()
 {
 	float camspeed = speed * deltaTime;
 	mCameraPos += camspeed * -glm::normalize(glm::cross(mCameraDir, mCameraUp));
+	//std::cout << "Camera_Left" << std::endl;
+
 }
 void camera::Camera_Back()
 {
 	float camspeed = speed * deltaTime;
 	mCameraPos += camspeed * -mCameraDir;
+	//std::cout << "Camera_Back" << std::endl;
+
 }
 void camera::Camera_Right()
 {
 	float camspeed = speed * deltaTime;
 	mCameraPos += camspeed * glm::normalize(glm::cross(mCameraDir, mCameraUp));
+	//std::cout << "Camera_Right" << std::endl;
+
 }
 void camera::Camera_Up()
 {
 	float camspeed = speed * deltaTime;
 	mCameraPos += camspeed * mCameraUp;
+	//std::cout << "Camera_Up" << std::endl;
+
 }
 void camera::Camera_Down()
 {
 	float camspeed = speed * deltaTime;
 	mCameraPos += camspeed * -mCameraUp;
+	//std::cout << "Camera_Down" << std::endl;
+
 }
 void camera::Camera_Speed_Faster()
 {
 	speed = FastSpeed;
+	//std::cout << "Camera_Speed_Faster" << std::endl;
+
 }
 void camera::Camera_Speed_Normal()
 {
 	speed = NormalSpeed;
+	//std::cout << "Camera_Speed_Normal" << std::endl;
+
 }
 void camera::Camera_MouseLook(GLFWwindow* window)
 {

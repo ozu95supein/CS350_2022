@@ -1,4 +1,5 @@
 #include "InputManager.hpp"
+#include <iostream>
 InputManager::InputManager(GLFWwindow* window, camera* cam)
 {
 	mCurrentWindow = window;
@@ -38,10 +39,16 @@ void InputManager::ReceiveInputs()
 	if (glfwGetKey(mCurrentWindow, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 	{
 		Input_Press_LSHIFT();
+		LEFT_SHIFT_PRESSED = true;
 	}
-	else if (glfwGetKey(mCurrentWindow, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE)
+	if (LEFT_SHIFT_PRESSED)
 	{
-		Input_Release_LSHIFT();
+		if (glfwGetKey(mCurrentWindow, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE)
+		{
+			Input_Release_LSHIFT();
+			LEFT_SHIFT_PRESSED = false;
+
+		}
 	}
 	// Handles mouse inputs
 	if (glfwGetMouseButton(mCurrentWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)

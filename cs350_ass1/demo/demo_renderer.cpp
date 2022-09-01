@@ -22,24 +22,20 @@ int main()
     gladLoadGL();
     // Specify the viewport of OpenGL in the Window
     glViewport(0, 0, window_width, window_height);
-    // Enables the Depth Buffer
-    glEnable(GL_DEPTH_TEST);
     //set the clear color
     glClearColor(0.05f, 0.07f, 0.2f, 1.0f);
 
     //InputManager
     InputManager input(w.GetWindowPtr(), &c);
-
+    //window object is in charge of glclear, swap buffers and glfwpollevents
     while (w.update()) 
     {    
         input.ReceiveInputs();
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        //camera update will update V and P matrices and deltatime
         c.update();
         //Draw
         // ...
         //
-        glfwSwapBuffers(w.GetWindowPtr());
-        glfwPollEvents();
     }
     return 0;
 }
