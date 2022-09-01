@@ -46,18 +46,36 @@ void debug_system::InitPointBuffer()
     glBindVertexArray(mPointVAO);
     glBindBuffer(GL_ARRAY_BUFFER, mPointVBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vec3), &mDefaultPointPrim, GL_STATIC_DRAW);
+    //specify the location of 
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 
+    
 }
 //TODO
 void debug_system::draw_point(vec3 pt, vec4 color)
 {
     // Bind the glsl program and this object's VAO
-    glUseProgram(mDebugShader.ID);
+    mDebugShader.Activate();
     // Enable front-face culling
     glCullFace(GL_FRONT);
-
+    //specify point size
     glPointSize(DebugPointSize);
-    glBindBuffer(mPointVAO);
+
+    //find the location of the inputs
+    GLuint loc_attr_position = glGetUniformLocation(mDebugShader.ID, "attr_position");
+    GLuint loc_uniform_mvp = glGetUniformLocation(mDebugShader.ID, "uniform_mvp");
+
+    //make the translation matrix out of the pt variable given
+    glm::mat4 trans = glm::mat4(1.0f);
+    trans = glm::translate(trans, pt);
+    //scale is determined by glPointSize, and there is no rotation or Model matrix for a point
+    //now we get view and projection matrices
+    mat4 V = mCam->mViewMatrix;
+    mat4 P = mCam->mProjectionMatrix;
+    mat4 MVP = P * V * trans;
+
+    glBindVertexArray(mPointVAO);
     glDrawArrays(GL_POINT, 0, 1);
 }
 //TODO

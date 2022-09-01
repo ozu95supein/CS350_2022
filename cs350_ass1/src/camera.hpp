@@ -48,10 +48,11 @@ public:
     void set_projection(float fov_deg, glm::ivec2 const& window_size, float near, float far);
     void set_position(vec3 const&);
     void set_target(vec3 const&);
-private:
 	//matrices for the rendering of the scene
-    mat4 mViewMatrix;
-    mat4 mProjectionMatrix;
+	mat4 mViewMatrix;
+	mat4 mProjectionMatrix;
+private:
+	
 	//variables to determine the camera attributes
 	vec3 mCameraPos;
 	vec3 mCameraDir;

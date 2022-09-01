@@ -33,7 +33,11 @@ int main()
         input.ReceiveInputs();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         c.update();
-
+        //Draw
+        // ...
+        //
+        glfwSwapBuffers(w.GetWindowPtr());
+        glfwPollEvents();
     }
     return 0;
 }
