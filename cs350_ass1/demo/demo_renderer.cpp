@@ -2,9 +2,11 @@
 #include "camera.hpp"
 #include "glm/glm.hpp"
 #include "InputManager.hpp"
+constexpr unsigned window_width = 1024;
+constexpr unsigned window_height = 760;
 int main()
 {
-    window w(1024,760, "cs350_framework", true);
+    window w(window_width, window_height, "cs350_framework", true);
     //camera(vec3 eye_pos, vec3 up, vec3 position_to_look_at, float FOV, float aspect, float near, float far);
     glm::vec3 camPos(0.0f, 0.0f, 0.0f);
     glm::vec3 camUp(0.0f, 1.0f, 0.0f);
@@ -14,12 +16,12 @@ int main()
     float near = 0.1f;
     float far = 100.0f;
     //create a camera for the scene
-    camera c(camPos, camDir, camUp, 1024, 760, 45.0f, near, far);
+    camera c(camPos, camDir, camUp, window_width, window_height, 45.0f, near, far);
     
     //Load GLAD so it configures OpenGL
     gladLoadGL();
     // Specify the viewport of OpenGL in the Window
-    glViewport(0, 0, 1024, 760);
+    glViewport(0, 0, window_width, window_height);
     // Enables the Depth Buffer
     glEnable(GL_DEPTH_TEST);
     //set the clear color
